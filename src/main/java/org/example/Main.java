@@ -17,6 +17,9 @@ public class Main {
         List<Article> articleList = new ArrayList<>();
         int lastArticleId = 1;
 
+        Member loginedMember = null;
+
+        // loginedMember;
         while (true) {
             System.out.printf("명령) ");
             String command = sc.nextLine().trim();
@@ -109,19 +112,40 @@ public class Main {
 
                     System.out.println("비밀번호가 일치하지 않습니다.");
                 }
-                
-                
+
+
                 Member member = new Member(lastMemberId, userId, password, now.toString());
                 memberList.add(member);
                 System.out.println(userId + "님 가입을 환영합니다.");
                 lastMemberId++;
+            } else if (command.equals("로그인")) {
+                Member checkedMember = null;
 
-                // 가입 테스트용
-                System.out.println(memberList.size());
+                System.out.printf("아이디 : ");
+                String userId = sc.nextLine().trim();
+                System.out.printf("비밀번호 : ");
+                String password = sc.nextLine().trim();
+
+                for (Member member : memberList) {
+                    if (userId.equals(member.userId)) {
+                        checkedMember = member;
+                        break;
+                    }
+                }
+
+                if (checkedMember == null) {
+                    System.out.println("해당 회원이 존재하지 않습니다.");
+                    continue;
+                } else if (checkedMember.password.equals(password) == false) {
+                    System.out.println("비밀번호가 일치 하지 않습니다.");
+                    continue;
+                }
+
+                loginedMember = checkedMember;
+
+                System.out.println(checkedMember.getUserId() + "님 환영합니다.");
             }
-
         }
-
-        sc.close();
+            sc.close();
+        }
     }
-}
