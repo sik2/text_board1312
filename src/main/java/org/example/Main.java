@@ -35,20 +35,27 @@ public class Main {
             if (command.equals("종료")) {
                 break;
             } else if (command.equals("등록")) {
+                if (loginedMember == null) {
+                    System.out.println("게시글은 로그인 후 작성해주세요.");
+                    continue;
+                }
+
                 System.out.printf("제목 : ");
                 String title = sc.nextLine();
                 System.out.printf("내용 : ");
                 String content = sc.nextLine();
 
-                Article article = new Article(lastArticleId, title, content);
+                LocalDate now = LocalDate.now();
+
+                Article article = new Article(lastArticleId, title, content, loginedMember.getUserId(), now.toString());
                 articleList.add(article);
 
                 lastArticleId++;
             } else if (command.equals("목록")) {
-                System.out.println("번호 / 제목 / 내용");
-                System.out.println("-------------------");
+                System.out.println("번호 / 제목 / 내용 / 작성자 / 등록일");
+                System.out.println("--------------------------------------");
                 for (Article article : articleList) {
-                    System.out.printf("%d,   %s,   %s\n", article.getId(), article.getTitle(), article.getContent());
+                    System.out.printf("%d,   %s,   %s,   %s,   %s\n", article.getId(), article.getTitle(), article.getContent(), article.getAuthor(), article.getRegDate());
                 }
             } else if (command.equals("삭제")) {
                 System.out.println("삭제할 id를 입력하세요.");
