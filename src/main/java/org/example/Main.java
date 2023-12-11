@@ -36,7 +36,7 @@ public class Main {
                 break;
             } else if (command.equals("등록")) {
                 if (loginedMember == null) {
-                    System.out.println("게시글은 로그인 후 작성해주세요.");
+                    System.out.println("해당기능은 로그인 후 가능합니다.");
                     continue;
                 }
 
@@ -58,15 +58,34 @@ public class Main {
                     System.out.printf("%d,   %s,   %s,   %s,   %s\n", article.getId(), article.getTitle(), article.getContent(), article.getAuthor(), article.getRegDate());
                 }
             } else if (command.equals("삭제")) {
+                if (loginedMember == null) {
+                    System.out.println("해당기능은 로그인 후 가능합니다.");
+                    continue;
+                }
+
                 System.out.println("삭제할 id를 입력하세요.");
                 System.out.printf("ID : ");
                 int removeId = Integer.parseInt(sc.nextLine().trim());
 
+                Article article = null;
                 for (int i = 0; i < articleList.size(); i++) {
                     if (removeId == articleList.get(i).getId()) {
-                        articleList.remove(i);
+                        article = articleList.get(i);
                     }
                 }
+
+                if (article == null) {
+                    System.out.println("해당 게시글은 존재하지 않습니다.");
+                    continue;
+                }
+
+                if (article.getAuthor() != loginedMember.getUserId()) {
+                    System.out.println("해당 작성자만 삭제가 가능합니다.");
+                    continue;
+                }
+
+                articleList.remove(article);
+
                 System.out.println(removeId + "번 게시글이 삭제 되었습니다.");
             } else if (command.equals("수정")) {
                 System.out.println("수정할 id를 입력하세요.");
