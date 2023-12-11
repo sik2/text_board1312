@@ -1,5 +1,6 @@
 package org.example;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,10 +12,10 @@ public class Main {
         System.out.println("== 시스템 시작 ==");
 
         List<Member> memberList = new ArrayList<>();
-
+        int lastMemberId = 1;
 
         List<Article> articleList = new ArrayList<>();
-        int lastId = 1;
+        int lastArticleId = 1;
 
         while (true) {
             System.out.printf("명령) ");
@@ -28,10 +29,10 @@ public class Main {
                 System.out.printf("내용 : ");
                 String content = sc.nextLine();
 
-                Article article = new Article(lastId, title, content);
+                Article article = new Article(lastArticleId, title, content);
                 articleList.add(article);
 
-                lastId++;
+                lastArticleId++;
             } else if (command.equals("목록")) {
                 System.out.println("번호 / 제목 / 내용");
                 System.out.println("-------------------");
@@ -70,28 +71,53 @@ public class Main {
                 }
                 System.out.println(modifyId + "번 게시글이 수정 되었습니다.");
             } else if (command.equals("회원가입")) {
+                String userId;
+                String password;
+                String passwordConfirm;
+                LocalDate now = LocalDate.now();
 
                 // 중복 아이디 검증
                 while (true) {
                     System.out.printf("아이디 : ");
-                    String userId = sc.nextLine().trim();
+                    userId = sc.nextLine().trim();
+                    boolean isDuplcated = false;
                     for (Member member : memberList) {
                         if (userId.equals(member.getUserId())) {
                             System.out.println("중복 아이디가 존재합니다.");
-                            continue;
+                            isDuplcated = true;
                         }
                     }
-                    break;
+
+                    // 중복 아이디가 없는 경우
+                    if (!isDuplcated) {
+                        break;
+                    }
+
                 }
 
-                // 비밀번호 확인 검증
-                // 1. 비번 입력
-                // 2. 비빌번호 확인
-                // 3. 비번 != 확인 틀렸고 안내해주고 다시입력 받기
+
+                while (true) {
+                    System.out.printf("비밀번호 : ");
+                    password = sc.nextLine().trim();
+
+                    System.out.printf("비밀번호 확인 : ");
+                    passwordConfirm = sc.nextLine().trim();
+
+                    if (password.equals(passwordConfirm)) {
+                        break;
+                    }
+
+                    System.out.println("비밀번호가 일치하지 않습니다.");
+                }
                 
                 
-                Member member = new Member(1, "test", "1234", "123");
+                Member member = new Member(lastMemberId, userId, password, now.toString());
                 memberList.add(member);
+                System.out.println(userId + "님 가입을 환영합니다.");
+                lastMemberId++;
+
+                // 가입 테스트용
+                System.out.println(memberList.size());
             }
 
         }
