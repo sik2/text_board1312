@@ -7,12 +7,20 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 
         System.out.println("== 시스템 시작 ==");
 
         List<Member> memberList = new ArrayList<>();
         int lastMemberId = 1;
+
+        Member member1 = new Member(1, "user1", "1234", LocalDate.now().toString());
+        memberList.add(member1);
+        Member member2 = new Member(2, "user2", "1234", LocalDate.now().toString());
+        memberList.add(member2);
+        Member member3 = new Member(3, "user3", "1234", LocalDate.now().toString());
+        memberList.add(member3);
 
         List<Article> articleList = new ArrayList<>();
         int lastArticleId = 1;
@@ -119,6 +127,11 @@ public class Main {
                 System.out.println(userId + "님 가입을 환영합니다.");
                 lastMemberId++;
             } else if (command.equals("로그인")) {
+                if (loginedMember != null) {
+                    System.out.println("현재 로그인 상태입니다.");
+                    continue;
+                }
+
                 Member checkedMember = null;
 
                 System.out.printf("아이디 : ");
@@ -144,6 +157,14 @@ public class Main {
                 loginedMember = checkedMember;
 
                 System.out.println(checkedMember.getUserId() + "님 환영합니다.");
+            } else if (command.equals("로그아웃")) {
+                if (loginedMember == null) {
+                    System.out.println("로그인 상태가 아닙니다.");
+                    continue;
+                }
+
+                loginedMember = null;
+                System.out.println("로그아웃 되었습니다.");
             }
         }
             sc.close();
