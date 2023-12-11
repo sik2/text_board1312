@@ -6,9 +6,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-       Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         System.out.println("== 시스템 시작 ==");
+
+        List<Member> memberList = new ArrayList<>();
+
 
         List<Article> articleList = new ArrayList<>();
         int lastId = 1;
@@ -66,11 +69,32 @@ public class Main {
                     }
                 }
                 System.out.println(modifyId + "번 게시글이 수정 되었습니다.");
+            } else if (command.equals("회원가입")) {
+
+                // 중복 아이디 검증
+                while (true) {
+                    System.out.printf("아이디 : ");
+                    String userId = sc.nextLine().trim();
+                    for (Member member : memberList) {
+                        if (userId.equals(member.getUserId())) {
+                            System.out.println("중복 아이디가 존재합니다.");
+                            continue;
+                        }
+                    }
+                    break;
+                }
+
+                // 비밀번호 확인 검증
+                // 1. 비번 입력
+                // 2. 비빌번호 확인
+                // 3. 비번 != 확인 틀렸고 안내해주고 다시입력 받기
+                
+                
+                Member member = new Member(1, "test", "1234", "123");
+                memberList.add(member);
             }
 
         }
-
-
 
         sc.close();
     }
