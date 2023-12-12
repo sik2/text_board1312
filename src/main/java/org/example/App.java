@@ -1,17 +1,9 @@
 package org.example;
 
-import org.example.article.Article;
 import org.example.article.ArticleController;
-import org.example.member.Member;
 import org.example.member.MemberController;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 public class App {
-    Member loginedMember = null;
 
     ArticleController articleController;
     MemberController memberController;

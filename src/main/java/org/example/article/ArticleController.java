@@ -11,7 +11,7 @@ public class ArticleController {
     int lastArticleId = 1;
 
     public void create () {
-        if (loginedMember == null) {
+        if (Global.getLoginedMember() == null) {
             System.out.println("해당기능은 로그인 후 가능합니다.");
             return;
         }
@@ -23,7 +23,7 @@ public class ArticleController {
 
         LocalDate now = LocalDate.now();
 
-        Article article = new Article(lastArticleId, title, content, loginedMember.getUserId(), now.toString());
+        Article article = new Article(lastArticleId, title, content, Global.getLoginedMember().getUserId(), now.toString());
         articleList.add(article);
 
         lastArticleId++;
@@ -36,7 +36,7 @@ public class ArticleController {
         }
     }
     public void delete () {
-        if (loginedMember == null) {
+        if (Global.getLoginedMember() == null) {
             System.out.println("해당기능은 로그인 후 가능합니다.");
             return;
         }
@@ -53,7 +53,7 @@ public class ArticleController {
             return;
         }
 
-        if (article.getAuthor() != loginedMember.getUserId()) {
+        if (article.getAuthor() != Global.getLoginedMember().getUserId()) {
             System.out.println("해당 작성자만 삭제가 가능합니다.");
             return;
         }
@@ -63,7 +63,7 @@ public class ArticleController {
         System.out.println(removeId + "번 게시글이 삭제 되었습니다.");
     }
     public void update () {
-        if (loginedMember == null) {
+        if (Global.getLoginedMember() == null) {
             System.out.println("해당기능은 로그인 후 가능합니다.");
             return;
         }
@@ -80,7 +80,7 @@ public class ArticleController {
             return;
         }
 
-        if (article.getAuthor() != loginedMember.getUserId()) {
+        if (article.getAuthor() != Global.getLoginedMember().getUserId()) {
             System.out.println("해당 작성자만 수정이 가능합니다.");
             return;
         }

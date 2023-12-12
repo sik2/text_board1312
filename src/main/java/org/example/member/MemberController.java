@@ -29,7 +29,7 @@ public class MemberController {
         // 중복 아이디 검증
         while (true) {
             System.out.printf("아이디 : ");
-            userId = sc.nextLine().trim();
+            userId = Global.getScanner().nextLine().trim();
             boolean isDuplcated = false;
 
             Member member = _memberFindByUserid(userId);
@@ -68,7 +68,7 @@ public class MemberController {
         lastMemberId++;
     }
     public void login () {
-        if (loginedMember != null) {
+        if (Global.getLoginedMember() != null) {
             System.out.println("현재 로그인 상태입니다.");
             return;
         }
@@ -91,17 +91,17 @@ public class MemberController {
             return;
         }
 
-        loginedMember = checkedMember;
+        Global.setLoginedMember(checkedMember);
 
         System.out.println(checkedMember.getUserId() + "님 환영합니다.");
     }
     public void logout () {
-        if (loginedMember == null) {
+        if (Global.getLoginedMember() == null) {
             System.out.println("로그인 상태가 아닙니다.");
             return;
         }
 
-        loginedMember = null;
+        Global.setLoginedMember(null);
         System.out.println("로그아웃 되었습니다.");
     }
 

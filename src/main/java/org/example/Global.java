@@ -1,5 +1,7 @@
 package org.example;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.member.Member;
 
 import java.util.Scanner;
@@ -18,6 +20,14 @@ public class Global {
 
     public static Scanner getScanner() {
         return scanner;
+    }
+
+    public static Member getLoginedMember() {
+        return loginedMember;
+    }
+
+    public static void setLoginedMember(Member member) {
+        loginedMember = member;
     }
 
 }
