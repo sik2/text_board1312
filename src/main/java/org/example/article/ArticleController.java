@@ -2,13 +2,15 @@ package org.example.article;
 
 import org.example.Global;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleController {
-    List<Article> articleList = new ArrayList<>();
-    int lastArticleId = 1;
+
+    ArticleService articleService;
+
+    public ArticleController () {
+        articleService = new ArticleService();
+    }
 
     public void create () {
         if (Global.getLoginedMember() == null) {
@@ -21,12 +23,14 @@ public class ArticleController {
         System.out.printf("내용 : ");
         String content = Global.getScanner().nextLine();
 
-        Article article = new Article(lastArticleId, title, content, Global.getLoginedMember().getUserId(), Global.nowDateTime());
-        articleList.add(article);
+        int id = this.articleService.save(title, content);
 
-        lastArticleId++;
+        System.out.println(id + "번 게시글이 등록되었습니다.");
+
     }
     public void list () {
+        List<Article> articleList = this.articleService.findByAll();
+
         System.out.println("번호 / 제목 / 내용 / 작성자 / 등록일");
         System.out.println("--------------------------------------");
         for (Article article : articleList) {
@@ -44,7 +48,7 @@ public class ArticleController {
         int removeId = Integer.parseInt(Global.getScanner().nextLine().trim());
 
         // 해당 article 객체 받아오기
-        Article article = _articleFindById(removeId);
+        Article article = this.articleService.articleFindById(removeId);
 
         if (article == null) {
             System.out.println("해당 게시글은 존재하지 않습니다.");
@@ -56,9 +60,9 @@ public class ArticleController {
             return;
         }
 
-        articleList.remove(article);
+        int id = this.articleService.delete(article);
 
-        System.out.println(removeId + "번 게시글이 삭제 되었습니다.");
+        System.out.println(id + "번 게시글이 삭제 되었습니다.");
     }
     public void update () {
         if (Global.getLoginedMember() == null) {
@@ -71,7 +75,7 @@ public class ArticleController {
         int modifyId = Integer.parseInt(Global.getScanner().nextLine().trim());
 
         // 해당 article 객체 받아오기
-        Article article = _articleFindById(modifyId);
+        Article article = this.articleService.articleFindById(modifyId);
 
         if (article == null) {
             System.out.println("해당 게시글은 존재하지 않습니다.");
@@ -91,18 +95,9 @@ public class ArticleController {
         System.out.printf("수정할 내용 : ");
         String content = Global.getScanner().nextLine();
 
-        article.setTitle(title);
-        article.setContent(content);
+        int id = this.articleService.update(article, title, content);
 
-        System.out.println(modifyId + "번 게시글이 수정 되었습니다.");
+        System.out.println(id + "번 게시글이 수정 되었습니다.");
     }
 
-    private Article _articleFindById(int id) {
-        for (int i = 0; i < articleList.size(); i++) {
-            if (id == articleList.get(i).getId()) {
-                return articleList.get(i);
-            }
-        }
-        return null;
-    }
 }
