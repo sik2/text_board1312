@@ -1,5 +1,7 @@
 package org.example.article;
 
+import org.example.Global;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +17,9 @@ public class ArticleController {
         }
 
         System.out.printf("제목 : ");
-        String title = sc.nextLine();
+        String title = Global.getScanner().nextLine();
         System.out.printf("내용 : ");
-        String content = sc.nextLine();
+        String content = Global.getScanner().nextLine();
 
         LocalDate now = LocalDate.now();
 
@@ -41,7 +43,7 @@ public class ArticleController {
 
         System.out.println("삭제할 id를 입력하세요.");
         System.out.printf("ID : ");
-        int removeId = Integer.parseInt(sc.nextLine().trim());
+        int removeId = Integer.parseInt(Global.getScanner().nextLine().trim());
 
         // 해당 article 객체 받아오기
         Article article = _articleFindById(removeId);
@@ -68,7 +70,7 @@ public class ArticleController {
 
         System.out.println("수정할 id를 입력하세요.");
         System.out.printf("ID : ");
-        int modifyId = Integer.parseInt(sc.nextLine().trim());
+        int modifyId = Integer.parseInt(Global.getScanner().nextLine().trim());
 
         // 해당 article 객체 받아오기
         Article article = _articleFindById(modifyId);
@@ -86,10 +88,10 @@ public class ArticleController {
 
         System.out.printf("기존 제목 : %s \n", article.getTitle());
         System.out.printf("수정할 제목 : ");
-        String title = sc.nextLine();
+        String title = Global.getScanner().nextLine();
         System.out.printf("기존 내용 : %s \n", article.getContent());
         System.out.printf("수정할 내용 : ");
-        String content = sc.nextLine();
+        String content = Global.getScanner().nextLine();
 
         article.setTitle(title);
         article.setContent(content);
