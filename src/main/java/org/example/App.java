@@ -6,13 +6,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    void run () {
-        Scanner sc = new Scanner(System.in);
+    Scanner sc = new Scanner(System.in);
+    List<Member> memberList = new ArrayList<>();
+    int lastMemberId = 1;
+
+    List<Article> articleList = new ArrayList<>();
+    int lastArticleId = 1;
+
+    Member loginedMember = null;
+
+    public void run () {
 
         System.out.println("== 시스템 시작 ==");
-
-        List<Member> memberList = new ArrayList<>();
-        int lastMemberId = 1;
 
         Member member1 = new Member(1, "user1", "1234", LocalDate.now().toString());
         memberList.add(member1);
@@ -20,11 +25,6 @@ public class App {
         memberList.add(member2);
         Member member3 = new Member(3, "user3", "1234", LocalDate.now().toString());
         memberList.add(member3);
-
-        List<Article> articleList = new ArrayList<>();
-        int lastArticleId = 1;
-
-        Member loginedMember = null;
 
         // loginedMember;
         while (true) {
@@ -66,12 +66,8 @@ public class App {
                 System.out.printf("ID : ");
                 int removeId = Integer.parseInt(sc.nextLine().trim());
 
-                Article article = null;
-                for (int i = 0; i < articleList.size(); i++) {
-                    if (removeId == articleList.get(i).getId()) {
-                        article = articleList.get(i);
-                    }
-                }
+                // 해당 article 객체 받아오기
+                Article article = _articleFindById(removeId);
 
                 if (article == null) {
                     System.out.println("해당 게시글은 존재하지 않습니다.");
@@ -96,12 +92,8 @@ public class App {
                 System.out.printf("ID : ");
                 int modifyId = Integer.parseInt(sc.nextLine().trim());
 
-                Article article = null;
-                for (int i = 0; i < articleList.size(); i++) {
-                    if (modifyId == articleList.get(i).getId()) {
-                        article = articleList.get(i);
-                    }
-                }
+                // 해당 article 객체 받아오기
+                Article article = _articleFindById(modifyId);
 
                 if (article == null) {
                     System.out.println("해당 게시글은 존재하지 않습니다.");
@@ -136,11 +128,12 @@ public class App {
                     System.out.printf("아이디 : ");
                     userId = sc.nextLine().trim();
                     boolean isDuplcated = false;
-                    for (Member member : memberList) {
-                        if (userId.equals(member.getUserId())) {
-                            System.out.println("중복 아이디가 존재합니다.");
-                            isDuplcated = true;
-                        }
+
+                    Member member = _memberFindByUserid(userId);
+
+                    if (member != null) {
+                        System.out.println("중복 아이디가 존재합니다.");
+                        isDuplcated = true;
                     }
 
                     // 중복 아이디가 없는 경우
@@ -183,12 +176,8 @@ public class App {
                 System.out.printf("비밀번호 : ");
                 String password = sc.nextLine().trim();
 
-                for (Member member : memberList) {
-                    if (userId.equals(member.userId)) {
-                        checkedMember = member;
-                        break;
-                    }
-                }
+                Member member = _memberFindByUserid(userId);
+                checkedMember = member;
 
                 if (checkedMember == null) {
                     System.out.println("해당 회원이 존재하지 않습니다.");
@@ -212,5 +201,23 @@ public class App {
             }
         }
         sc.close();
+    }
+
+    private Article _articleFindById(int id) {
+        for (int i = 0; i < articleList.size(); i++) {
+            if (id == articleList.get(i).getId()) {
+                return articleList.get(i);
+            }
+        }
+        return null;
+    }
+
+    private Member _memberFindByUserid(String userId) {
+        for (Member member : memberList) {
+            if (userId.equals(member.userId)) {
+                return member;
+            }
+        }
+        return null;
     }
 }
