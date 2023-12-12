@@ -20,22 +20,29 @@ public class App {
             System.out.printf("명령) ");
             String command = Global.getScanner().nextLine().trim();
 
-            if (command.equals("종료")) {
-                break;
-            } else if (command.equals("등록")) {
-                articleController.create();
-            } else if (command.equals("목록")) {
-                articleController.list();
-            } else if (command.equals("삭제")) {
-                articleController.delete();
-            } else if (command.equals("수정")) {
-                articleController.update();
-            } else if (command.equals("회원가입")) {
-                memberController.join();
-            } else if (command.equals("로그인")) {
-                memberController.login();
-            } else if (command.equals("로그아웃")) {
-                memberController.logout();
+            switch (command) {
+                case "종료":
+                    return;
+                case "등록":
+                    articleController.create();
+                    break;
+                case "목록":
+                    articleController.list();
+                    break;
+                case "삭제":
+                    articleController.update();
+                    break;
+                case "수정":
+                    break;
+                case "회원가입":
+                    memberController.join();
+                    break;
+                case "로그인":
+                    memberController.login();
+                    break;
+                case "로그아웃":
+                    memberController.logout();
+                    break;
             }
         }
     }

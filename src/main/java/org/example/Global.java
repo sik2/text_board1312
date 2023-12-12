@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.member.Member;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Global {
@@ -28,6 +29,11 @@ public class Global {
 
     public static void setLoginedMember(Member member) {
         loginedMember = member;
+    }
+
+    public static String nowDateTime() {
+        String now = LocalDate.now().toString();
+        return now;
     }
 
 }

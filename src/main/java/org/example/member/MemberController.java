@@ -12,11 +12,11 @@ public class MemberController {
     int lastMemberId = 1;
 
     public MemberController () {
-        Member member1 = new Member(1, "user1", "1234", LocalDate.now().toString());
+        Member member1 = new Member(1, "user1", "1234", Global.nowDateTime());
         memberList.add(member1);
-        Member member2 = new Member(2, "user2", "1234", LocalDate.now().toString());
+        Member member2 = new Member(2, "user2", "1234", Global.nowDateTime());
         memberList.add(member2);
-        Member member3 = new Member(3, "user3", "1234", LocalDate.now().toString());
+        Member member3 = new Member(3, "user3", "1234", Global.nowDateTime());
         memberList.add(member3);
     }
 
@@ -24,7 +24,6 @@ public class MemberController {
         String userId;
         String password;
         String passwordConfirm;
-        LocalDate now = LocalDate.now();
 
         // 중복 아이디 검증
         while (true) {
@@ -62,7 +61,7 @@ public class MemberController {
         }
 
 
-        Member member = new Member(lastMemberId, userId, password, now.toString());
+        Member member = new Member(lastMemberId, userId, password, Global.nowDateTime());
         memberList.add(member);
         System.out.println(userId + "님 가입을 환영합니다.");
         lastMemberId++;

@@ -21,9 +21,7 @@ public class ArticleController {
         System.out.printf("내용 : ");
         String content = Global.getScanner().nextLine();
 
-        LocalDate now = LocalDate.now();
-
-        Article article = new Article(lastArticleId, title, content, Global.getLoginedMember().getUserId(), now.toString());
+        Article article = new Article(lastArticleId, title, content, Global.getLoginedMember().getUserId(), Global.nowDateTime());
         articleList.add(article);
 
         lastArticleId++;
