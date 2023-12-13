@@ -1,7 +1,5 @@
 package org.example;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.example.member.Member;
 
 import java.time.LocalDate;
