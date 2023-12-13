@@ -8,22 +8,19 @@ import java.util.List;
 
 public class MemberController {
 
-    List<Member> memberList = new ArrayList<>();
-    int lastMemberId = 1;
+    MemberService memberService;
 
     public MemberController () {
-        Member member1 = new Member(1, "user1", "1234", Global.nowDateTime());
-        memberList.add(member1);
-        Member member2 = new Member(2, "user2", "1234", Global.nowDateTime());
-        memberList.add(member2);
-        Member member3 = new Member(3, "user3", "1234", Global.nowDateTime());
-        memberList.add(member3);
+        memberService = new MemberService();
     }
+
 
     public void join () {
         String userId;
         String password;
         String passwordConfirm;
+
+
 
         // 중복 아이디 검증
         while (true) {
@@ -31,7 +28,7 @@ public class MemberController {
             userId = Global.getScanner().nextLine().trim();
             boolean isDuplcated = false;
 
-            Member member = _memberFindByUserid(userId);
+            Member member = this.memberService.memberFindByUserid(userId);
 
             if (member != null) {
                 System.out.println("중복 아이디가 존재합니다.");
@@ -60,11 +57,10 @@ public class MemberController {
             System.out.println("비밀번호가 일치하지 않습니다.");
         }
 
+        String joinUserId = this.memberService.join(userId, password);
 
-        Member member = new Member(lastMemberId, userId, password, Global.nowDateTime());
-        memberList.add(member);
-        System.out.println(userId + "님 가입을 환영합니다.");
-        lastMemberId++;
+        System.out.println(joinUserId + "님 가입을 환영합니다.");
+
     }
     public void login () {
         if (Global.getLoginedMember() != null) {
@@ -79,7 +75,7 @@ public class MemberController {
         System.out.printf("비밀번호 : ");
         String password = Global.getScanner().nextLine().trim();
 
-        Member member = _memberFindByUserid(userId);
+        Member member = this.memberService.memberFindByUserid(userId);
         checkedMember = member;
 
         if (checkedMember == null) {
@@ -90,7 +86,7 @@ public class MemberController {
             return;
         }
 
-        Global.setLoginedMember(checkedMember);
+        this.memberService.login(checkedMember);
 
         System.out.println(checkedMember.getUserId() + "님 환영합니다.");
     }
@@ -100,16 +96,10 @@ public class MemberController {
             return;
         }
 
-        Global.setLoginedMember(null);
+        this.memberService.logout();
+
         System.out.println("로그아웃 되었습니다.");
     }
 
-    private Member _memberFindByUserid(String userId) {
-        for (Member member : memberList) {
-            if (userId.equals(member.getUserId())) {
-                return member;
-            }
-        }
-        return null;
-    }
+
 }
