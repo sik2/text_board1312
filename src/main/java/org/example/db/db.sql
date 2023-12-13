@@ -6,10 +6,11 @@ create table article (
 	id int UNSIGNED NOT NULL AUTO_INCREMENT,
 	title varchar(100) NOT NULL,
 	content text NOT NULL,
-	author varchar(50) NOT NULL,
+	memberId int UNSIGNED NOT NULL,
 	regDate datetime NOT NULL,
 	PRIMARY KEY (id)
 );
+
 
 CREATE TABLE `member` (
 	id int UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -36,11 +37,11 @@ regDate = now();
 INSERT INTO article
 SET title = "test",
 content = "test",
-author = "member1",
+memberId = 1,
 regDate = now();
 
 INSERT INTO article
 SET title = "test2",
 content = "test2",
-author = "member2",
+memberId = 2,
 regDate = now();
