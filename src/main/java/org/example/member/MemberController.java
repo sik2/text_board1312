@@ -2,10 +2,6 @@ package org.example.member;
 
 import org.example.Global;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 public class MemberController {
 
     MemberService memberService;
