@@ -28,7 +28,7 @@ public class MemberController {
             userId = Global.getScanner().nextLine().trim();
             boolean isDuplcated = false;
 
-            Member member = this.memberService.memberFindByUserid(userId);
+            Member member = this.memberService.memberFindByUserId(userId);
 
             if (member != null) {
                 System.out.println("중복 아이디가 존재합니다.");
@@ -75,7 +75,7 @@ public class MemberController {
         System.out.printf("비밀번호 : ");
         String password = Global.getScanner().nextLine().trim();
 
-        Member member = this.memberService.memberFindByUserid(userId);
+        Member member = this.memberService.memberFindByUserId(userId);
         checkedMember = member;
 
         if (checkedMember == null) {
