@@ -4,6 +4,7 @@ import org.example.Global;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ArticleRepository {
     List<Article> articleList = new ArrayList<>();
@@ -19,6 +20,14 @@ public class ArticleRepository {
     }
 
     public List<Article> findByAll() {
+        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("select * from article");
+
+        for (Map<String, Object> row : rows) {
+            Article article = new Article(row);
+
+            articleList.add(article);
+        }
+
         return articleList;
     }
 
