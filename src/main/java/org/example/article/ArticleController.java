@@ -95,9 +95,9 @@ public class ArticleController {
         System.out.printf("수정할 내용 : ");
         String content = Global.getScanner().nextLine();
 
-        int id = this.articleService.update(article, title, content);
+        this.articleService.update(article, title, content);
 
-        System.out.println(id + "번 게시글이 수정 되었습니다.");
+        System.out.println(modifyId + "번 게시글이 수정 되었습니다.");
     }
 
 }

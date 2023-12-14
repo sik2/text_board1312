@@ -21,8 +21,8 @@ public class ArticleService {
         this.articleRepository.delete(article);
     }
 
-    public int update(Article article, String title, String content) {
-        return this.articleRepository.update(article, title, content);
+    public void update(Article article, String title, String content) {
+        this.articleRepository.update(article, title, content);
     }
 
     public Article articleFindById(int id) {

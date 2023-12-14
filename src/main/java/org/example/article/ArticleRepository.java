@@ -34,11 +34,10 @@ public class ArticleRepository {
         Global.getDBConnection().delete(sql);
     }
 
-    public int update(Article article, String title, String content) {
-        article.setTitle(title);
-        article.setContent(content);
+    public void update(Article article, String title, String content) {
+        String sql = String.format("UPDATE article set title='%s', content='%s' where id=%d;", title, content, article.getId());
 
-        return article.getId();
+        Global.getDBConnection().update(sql);
     }
 
     public Article articleFindById(int id) {
