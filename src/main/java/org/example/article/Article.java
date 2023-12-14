@@ -13,7 +13,7 @@ public class Article {
     private int id;
     private String title;
     private String content;
-    private int userId;
+    private int memberId;
     private String regDate;
 
 
@@ -21,7 +21,7 @@ public class Article {
         this.id = (int)row.get("id");
         this.title = (String)row.get("title");
         this.content = (String)row.get("content");
-        this.userId = (int)row.get("useId");
-        this.regDate = (String)row.get("regDate");
+        this.memberId = (int)row.get("memberId");
+        this.regDate = row.get("regDate").toString();
     }
 }

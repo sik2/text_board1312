@@ -4,9 +4,6 @@ import org.example.article.ArticleController;
 import org.example.db.DBConnection;
 import org.example.member.MemberController;
 
-import java.util.List;
-import java.util.Map;
-
 public class App {
 
     ArticleController articleController;
@@ -18,13 +15,7 @@ public class App {
         DBConnection.DB_USER = "root";
         DBConnection.DB_PASSWORD = "";
 
-        DBConnection DBC = new DBConnection();
-
-        DBC.connect();
-
-        List<Map<String, Object>> results = DBC.selectRows("select * from article");
-        System.out.println(results);
-
+        Global.getDBConnection().connect();
 
         articleController = new ArticleController();
         memberController = new MemberController();

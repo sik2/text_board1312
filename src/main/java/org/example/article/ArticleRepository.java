@@ -11,7 +11,7 @@ public class ArticleRepository {
     int lastArticleId = 1;
 
     public int save (String title, String content) {
-        Article article = new Article(lastArticleId, title, content, Global.getLoginedMember().getUserId(), Global.nowDateTime());
+        Article article = new Article(lastArticleId, title, content, Global.getLoginedMember().getId(), Global.nowDateTime());
         articleList.add(article);
 
         lastArticleId++;
@@ -20,6 +20,8 @@ public class ArticleRepository {
     }
 
     public List<Article> findByAll() {
+        List<Article> articleList = new ArrayList<>();
+
         List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("select * from article");
 
         for (Map<String, Object> row : rows) {

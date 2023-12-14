@@ -34,7 +34,7 @@ public class ArticleController {
         System.out.println("번호 / 제목 / 내용 / 작성자 / 등록일");
         System.out.println("--------------------------------------");
         for (Article article : articleList) {
-            System.out.printf("%d,   %s,   %s,   %s,   %s\n", article.getId(), article.getTitle(), article.getContent(), article.getAuthor(), article.getRegDate());
+            System.out.printf("%d,   %s,   %s,   %s,   %s\n", article.getId(), article.getTitle(), article.getContent(), article.getMemberId(), article.getRegDate());
         }
     }
     public void delete () {
@@ -55,7 +55,7 @@ public class ArticleController {
             return;
         }
 
-        if (article.getAuthor() != Global.getLoginedMember().getUserId()) {
+        if (article.getMemberId() != Global.getLoginedMember().getId()) {
             System.out.println("해당 작성자만 삭제가 가능합니다.");
             return;
         }
@@ -82,7 +82,7 @@ public class ArticleController {
             return;
         }
 
-        if (article.getAuthor() != Global.getLoginedMember().getUserId()) {
+        if (article.getMemberId() != Global.getLoginedMember().getId()) {
             System.out.println("해당 작성자만 수정이 가능합니다.");
             return;
         }
