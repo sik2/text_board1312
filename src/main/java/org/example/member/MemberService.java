@@ -11,7 +11,7 @@ public class MemberService {
         memberRepository = new MemberRepository();
     }
 
-    public String join (String userId, String password) {
+    public int join (String userId, String password) {
         return this.memberRepository.join(userId, password);
     }
 

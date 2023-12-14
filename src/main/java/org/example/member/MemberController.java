@@ -53,9 +53,14 @@ public class MemberController {
             System.out.println("비밀번호가 일치하지 않습니다.");
         }
 
-        String joinUserId = this.memberService.join(userId, password);
+        int memberId = this.memberService.join(userId, password);
 
-        System.out.println(joinUserId + "님 가입을 환영합니다.");
+        if (memberId == -1) {
+            System.out.println("회원가입에 실패하였습니다.");
+            return;
+        }
+
+        System.out.println(userId + "님 가입을 환영합니다.");
 
     }
     public void login () {
