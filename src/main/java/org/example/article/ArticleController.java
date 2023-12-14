@@ -60,9 +60,9 @@ public class ArticleController {
             return;
         }
 
-        int id = this.articleService.delete(article);
+        this.articleService.delete(article);
 
-        System.out.println(id + "번 게시글이 삭제 되었습니다.");
+        System.out.println(removeId + "번 게시글이 삭제 되었습니다.");
     }
     public void update () {
         if (Global.getLoginedMember() == null) {

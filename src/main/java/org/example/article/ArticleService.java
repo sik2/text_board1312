@@ -17,8 +17,8 @@ public class ArticleService {
         return this.articleRepository.findByAll();
     }
 
-    public int delete(Article article) {
-        return this.articleRepository.delete(article);
+    public void delete(Article article) {
+        this.articleRepository.delete(article);
     }
 
     public int update(Article article, String title, String content) {
