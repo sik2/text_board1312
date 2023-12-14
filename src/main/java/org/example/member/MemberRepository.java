@@ -2,16 +2,11 @@ package org.example.member;
 
 import org.example.Global;
 
-public class MemberRepository {
-    public MemberRepository () {
-//        Member member1 = new Member(1, "user1", "1234", Global.nowDateTime());
-//        memberList.add(member1);
-//        Member member2 = new Member(2, "user2", "1234", Global.nowDateTime());
-//        memberList.add(member2);
-//        Member member3 = new Member(3, "user3", "1234", Global.nowDateTime());
-//        memberList.add(member3);
-    }
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+public class MemberRepository {
     public int join (String userId, String password) {
         String sql = String.format("INSERT INTO member SET userId='%s', password='%s', regDate = now();", userId, password);
 
@@ -21,11 +16,22 @@ public class MemberRepository {
     }
 
     public Member memberFindByUserId (String userId) {
-//        for (Member member : memberList) {
-//            if (userId.equals(member.getUserId())) {
-//                return member;
-//            }
-//        }
+        List<Member> memberList = new ArrayList<>();
+
+        String sql = "select * from `member`;";
+
+        List<Map<String, Object>> rows = Global.getDBConnection().selectRows(sql);
+
+        for (Map<String, Object> row : rows) {
+            Member member = new Member(row);
+            memberList.add(member);
+        }
+
+        for (Member member : memberList) {
+            if (userId.equals(member.getUserId())) {
+                return member;
+            }
+        }
         return null;
     }
 }
