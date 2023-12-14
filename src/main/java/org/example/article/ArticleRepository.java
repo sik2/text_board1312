@@ -8,15 +8,12 @@ import java.util.Map;
 
 public class ArticleRepository {
     List<Article> articleList = new ArrayList<>();
-    int lastArticleId = 1;
-
     public int save (String title, String content) {
-        Article article = new Article(lastArticleId, title, content, Global.getLoginedMember().getId(), Global.nowDateTime());
-        articleList.add(article);
+        String sql = String.format("INSERT INTO article SET title='%s', content='%s', memberId=%d, regDate=now();", title, content, Global.getLoginedMember().getId());
 
-        lastArticleId++;
+        int id = Global.getDBConnection().insert(sql);
 
-        return article.getId();
+        return id;
     }
 
     public List<Article> findByAll() {
