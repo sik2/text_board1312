@@ -17,6 +17,11 @@ public class ArticleService {
         return this.articleRepository.findByAll();
     }
 
+    public List<ArticleDTO> joinMemberFindByAll() {
+        return this.articleRepository.joinMemberFindByAll();
+    }
+
+
     public void delete(Article article) {
         this.articleRepository.delete(article);
     }

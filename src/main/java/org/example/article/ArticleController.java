@@ -33,11 +33,11 @@ public class ArticleController {
 
     }
     public void list () {
-        List<Article> articleList = this.articleService.findByAll();
+        List<ArticleDTO> articleList = this.articleService.joinMemberFindByAll();
 
         System.out.println("번호 / 제목 / 내용 / 작성자 / 등록일");
         System.out.println("--------------------------------------");
-        for (Article article : articleList) {
+        for (ArticleDTO article : articleList) {
 
             Member member = this.memberService.memberFindById(article.getMemberId());
             System.out.printf("%d,   %s,   %s,   %s,   %s\n", article.getId(), article.getTitle(), article.getContent(), member.getUserId(), article.getRegDate());

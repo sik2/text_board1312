@@ -15,11 +15,24 @@ public class ArticleRepository {
         return id;
     }
 
+    public List<ArticleDTO> joinMemberFindByAll() {
+        List<ArticleDTO> articleList = new ArrayList<>();
+        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("select A.*, M.userId from article AS A JOIN `member` AS M ON A.memberId = M.id");
+
+        for (Map<String, Object> row : rows) {
+            ArticleDTO article = new ArticleDTO(row);
+
+            articleList.add(article);
+        }
+
+        return articleList;
+    }
+
     public List<Article> findByAll() {
         List<Article> articleList = new ArrayList<>();
 
-        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("select * from article");
-
+        List<Map<String, Object>> rows =  Global.getDBConnection().selectRows("select * from `member`");
+        System.out.println(rows);
         for (Map<String, Object> row : rows) {
             Article article = new Article(row);
 
