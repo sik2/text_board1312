@@ -1,15 +1,19 @@
 package org.example.article;
 
 import org.example.Global;
+import org.example.member.Member;
+import org.example.member.MemberService;
 
 import java.util.List;
 
 public class ArticleController {
 
     ArticleService articleService;
+    MemberService memberService;
 
     public ArticleController () {
         articleService = new ArticleService();
+        memberService = new MemberService();
     }
 
     public void create () {
@@ -34,7 +38,9 @@ public class ArticleController {
         System.out.println("번호 / 제목 / 내용 / 작성자 / 등록일");
         System.out.println("--------------------------------------");
         for (Article article : articleList) {
-            System.out.printf("%d,   %s,   %s,   %s,   %s\n", article.getId(), article.getTitle(), article.getContent(), article.getMemberId(), article.getRegDate());
+
+            Member member = this.memberService.memberFindById(article.getMemberId());
+            System.out.printf("%d,   %s,   %s,   %s,   %s\n", article.getId(), article.getTitle(), article.getContent(), member.getUserId(), article.getRegDate());
         }
     }
     public void delete () {

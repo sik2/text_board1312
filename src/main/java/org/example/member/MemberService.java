@@ -7,7 +7,7 @@ public class MemberService {
 
     MemberRepository memberRepository;
 
-    MemberService () {
+    public MemberService() {
         memberRepository = new MemberRepository();
     }
 
@@ -18,6 +18,10 @@ public class MemberService {
 
     public Member memberFindByUserId(String userId) {
         return this.memberRepository.memberFindByUserId(userId);
+    }
+
+    public Member memberFindById (int id) {
+        return this.memberRepository.memberFindById(id);
     }
 
     public void login(Member checkedMember) {

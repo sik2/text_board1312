@@ -16,6 +16,28 @@ public class MemberRepository {
     }
 
     public Member memberFindByUserId (String userId) {
+        List<Member> memberList = this.findByAll();
+
+        for (Member member : memberList) {
+            if (userId.equals(member.getUserId())) {
+                return member;
+            }
+        }
+        return null;
+    }
+
+    public Member memberFindById(int id) {
+        List<Member> memberList = this.findByAll();
+
+        for (Member member : memberList) {
+            if (id == member.getId()) {
+                return member;
+            }
+        }
+        return null;
+    }
+
+    public List<Member> findByAll() {
         List<Member> memberList = new ArrayList<>();
 
         String sql = "select * from `member`;";
@@ -26,12 +48,6 @@ public class MemberRepository {
             Member member = new Member(row);
             memberList.add(member);
         }
-
-        for (Member member : memberList) {
-            if (userId.equals(member.getUserId())) {
-                return member;
-            }
-        }
-        return null;
+        return memberList;
     }
 }
